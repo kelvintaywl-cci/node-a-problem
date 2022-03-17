@@ -1,0 +1,47 @@
+version: 2.1
+
+commands:
+  install_deps:
+    description: Install Node dependencies
+    steps:
+      - restore_cache:
+          keys:
+            - foobar-{{ checksum "yarn.lock" }}
+      - run: ls -la
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile --network-concurrency 1
+
+      - save_cache:
+          key: foobar-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+
+
+
+jobs:
+  node-test:
+    parameters:
+      img:
+        type: string
+        default: cimg/node:16.13.1-browsers
+    docker:
+      - image: << parameters.img >>
+    resource_class: 'medium+'
+    working_directory: ~/core/web
+    steps:
+      - checkout:
+          path: ~/core
+      - run: |
+          node -v
+      - install_deps
+
+workflows:
+  main:
+    jobs:
+      - node-test:
+          matrix:
+            parameters:
+              img:
+                - cimg/node:16.13.1-browsers
+                - cimg/node:14.19.0-browsers
