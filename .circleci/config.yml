@@ -37,6 +37,8 @@ jobs:
       - run: |
           node -v
       - install_deps
+      - run: |
+          node index.js
 
 workflows:
   main:
