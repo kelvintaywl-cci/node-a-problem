@@ -33,6 +33,8 @@ jobs:
       - checkout:
           path: ~/core
       - run: |
+          pwd
+      - run: |
           node -v
       - install_deps
 
