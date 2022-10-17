@@ -41,17 +41,33 @@ jobs:
           node index.js
 
   generate_bindings:
+    parameters:
+      img:
+        type: string
     working_directory: ~/apps
     machine:
-      image: ubuntu-2004:202010-01
+      image: << parameters.img >>
     resource_class: medium
     steps:
     - checkout
     - run:
+        name: Inspect Node
+        command: |
+          node -v
+          npm -v
+          which npx
+    - run:
         name: Lerna
-        command: npx lerna la -a
+        command: npx lerna --help
 
 workflows:
   main:
     jobs:
-      - generate_bindings
+      - generate_bindings:
+          matrix:
+            parameters:
+              img:
+                - ubuntu-2004:202010-01
+                - ubuntu-2004:202111-02
+                - ubuntu-2004:202201-02
+                - ubuntu-2004:2022.07.1
