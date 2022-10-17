@@ -40,12 +40,18 @@ jobs:
       - run: |
           node index.js
 
+  generate_bindings:
+    working_directory: ~/apps
+    machine:
+      image: ubuntu-2004:202010-01
+    resource_class: medium
+    steps:
+    - checkout
+    - run:
+        name: Lerna
+        command: npx lerna la -a
+
 workflows:
   main:
     jobs:
-      - node-test:
-          matrix:
-            parameters:
-              img:
-                - cimg/node:16.13.1-browsers
-                - cimg/node:14.19.0-browsers
+      - generate_bindings
