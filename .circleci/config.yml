@@ -12,6 +12,14 @@ jobs:
           npm -v
       - run: |
           npm install
+      - run:
+          name: inspect NPM debug logs
+          command: tail -n 100 /root/project/npm-debug.log
+          when: on_fail
+      - run:
+          name: list installed packages
+          command: npm list --depth=0
+          when: always
 
 workflows:
   main:
