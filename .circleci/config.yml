@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   node-test:
     docker:
-      - image: node:4.4.6
+      - image: node:14
     resource_class: 'medium+'
     steps:
       - checkout
@@ -11,15 +11,9 @@ jobs:
           node -v
           npm -v
       - run: |
-          npm install
-      - run:
-          name: inspect NPM debug logs
-          command: tail -n 100 /root/project/npm-debug.log
-          when: on_fail
-      - run:
-          name: list installed packages
-          command: npm list --depth=0
-          when: always
+          npm i -g gifsicle@0.1.7 jpegtran-bin@0.2.8 optipng-bin@0.3.11 pngquant-bin@0.1.7
+          npm i
+          
 
 workflows:
   main:
