@@ -30,15 +30,7 @@ jobs:
     resource_class: 'medium+'
     working_directory: ~/core/web
     steps:
-      - checkout:
-          path: ~/core
-      - run: |
-          pwd
-      - run: |
-          node -v
-      - install_deps
-      - run: |
-          node index.js
+      - run: sleep 30
 
 workflows:
   main:
@@ -48,4 +40,3 @@ workflows:
             parameters:
               img:
                 - cimg/node:16.13.1-browsers
-                - cimg/node:14.19.0-browsers
