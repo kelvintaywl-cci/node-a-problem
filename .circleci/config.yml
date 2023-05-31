@@ -10,9 +10,7 @@ jobs:
       - run: |
           node -v
           npm -v
-      - run: |
-          npm i -g gifsicle@0.1.7 jpegtran-bin@0.2.8 optipng-bin@0.3.11 pngquant-bin@0.1.7
-          npm i
+      - run: exit 1
           
 
 workflows:
