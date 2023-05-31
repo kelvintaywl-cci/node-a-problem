@@ -30,7 +30,7 @@ jobs:
     resource_class: 'medium+'
     working_directory: ~/core/web
     steps:
-      - run: sleep 30
+      - run: sleep 31
 
 workflows:
   main:
